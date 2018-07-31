@@ -1,0 +1,2 @@
+# pxt-BME280_I2C_JP
+micro:bitのI2Cバスに接続されたBME280を制御するためのMakeCode用のカスタムパッケージです。
