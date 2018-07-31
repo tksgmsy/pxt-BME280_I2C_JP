@@ -1,18 +1,21 @@
+## おや？夏休みの自由研究かい？
+ひょっとして君は、夏休みの自由研究に、BME280を使って、気温と気圧、そして湿度の測定をしようとしている小学生かな？  
+すごい！がんばれ！きっとできる！下に書いてあることをよく読んでやってみよう！  
+よく読んでも、わからないことがあるときは、近くの人に聞いてみよう！その人が知らなくても、知っている人や、詳しそうな人をしっているかもしれない。きっと君の助けになると思うよ。だから一人で悩んじゃダメだ。  
 
-## What is BME280
-BME280 is a sensor to measure temperature, pressure, and humidity, which is mainly for monitoring an ordinal environment.
-micro:bit itself also has a temperature sensor. However, it is for monitoring the temperature of CPU to prevent from overheating, which will report you a higher temperature than the environment when you run some tasks on the CPU. On the other hand, BME280 will report you pretty precise measurement result, since the each of the unit has its own data to calibrate measurement result.  
-You can refer the following link for more information about the device.  
+## BME280とは？
+BME280は、ドイツのBOSCHという会社が作った、気温と気圧、そして湿度を正確にはかるためのセンサーだ。しかも、マイコンとつながるためのインターフェースも持っている。これをmicro:bitにつなげば、BME280が正確な 気温と気圧、湿度を測って、micro:bitに送ってくれるわけだ。micro:bitにも、温度計はついているんだけど、これでは、あまり正確に気温を測ることができないんだ。（どうしてかっていうと、micro:bitの温度計は、micro:bitのCPUの温度を測るためについているからで、気温を測るためについているんじゃないんだ。）  
+もしも、君が英語もスラスラ読めるすごい小学生なら、以下のリンクにBME280のことがもっと詳しくかいてあるよ。  
 https://www.bosch-sensortec.com/bst/products/all_products/bme280  
 
-## Set up
-### What you must have
+## さっそく準備しよう！
+### これだけは絶対必要！
 - micro:bit  
 ![microbit](image000.jpg)  
 - BME280 i2c board  
 ![BME280](image001.jpg)  
 
-### What you may nice to have
+### もっていると、とても便利なもの！
 - a breakout board for micro:bit  
 breakout board exposes all terminals of the connected micro:bit to the pins that can be connected to a breadboard safely.  
 ![BreakoutBoard](image01.jpg)  
