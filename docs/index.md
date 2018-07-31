@@ -60,42 +60,46 @@ BME280だけじゃなくて、必ず基盤についているやつを選んで�
 3. マイクロビットの"SDA"をBME280ボードの"SDI"に
 4. マイクロビットの"SCL"をBME280ボードの"SCK"に
 
-### My case
-OK, then, let's see how my case was.
+### せつぞくしてみたよ！
+じゃあ、僕の場合を見てみよう。参考にしてね。  
 
-1. Insert micro:bit to the card edge connector of the breakout board.  
+1. まずは、マイクロビットをブレイクアウトボードにつなぐよ 
 ![proc01](proc01.jpg)  
-2. Connect the breakout board to the breadboard.  
+2. 次にブレイクアウトボードとブレッドボードをつなぐよ！  
 ![proc02](proc02.jpg)  
-3. Connect the BME280 board to the other hand of the breadboard.  
+3. そのあとに、BME280ボードをブレッドボードにつなぐよ。  
+ブレッドボードは、真ん中の溝で、線が切れているから、マイクロビットの反対側に指すといいよ。一番はじの、+と-が書いてあるところには、ささないように注意してね。
 ![proc03](proc03.jpg)  
-4. Connect jumper pins to make the circuit described above.  
-In my case, there were two more pins needed to connect to "GND" and "+3v3" respectively.  
-The one was to select I2C address of BME280 board, which was 0x76. The other was to activate I2C bus.  
+4. 最後にジャンパーを使って、さっき説明した通りに線をつなぐよ。写真の赤い線は、"+v3v"につないでいる線で、黒い線は、"GND"につないでいるよ。青い線が、”SCL"につながっていて、白い線が"SDA"につながってるよ。僕が使っているBME280ボードは、さっき説明した4つの線のほかに、2つつないでいるところがあるんだ。一つは、SPIとI2Cのうち、I2Cを使うことを伝えるためにつないでいる線と、もう一つは、I2Cのアドレスを0x76にするためにつないでいる線があるんだ。これはBME280ボードの説明書をよく読むと書いてあると思うよ。わからないときは、周りの人に聞いてみよう！  
 ![proc04](proc04.jpg)  
 
-### Let's code!
-Finally we have prepared to use our BME280. Here is the step to get work the sensors.  
+### プログラミングしよう！
+ふぅー。やっと接続できたね。うまく動くといいんだけど。。。ちょっと不安だね。でも次はプログラミングだよ。実際にBME280ボードから気温のデータを読んでみよう！  
 
-1. Open [https://makecode.microbit.org](https://makecode.microbit.org) on your browser.
-2. Click gear icon and select "Add Package..."  
+1. まずは、パソコンンのブラウザで、[https://makecode.microbit.org](https://makecode.microbit.org) を開いてみよう。  
+日本語になっていない場合は、右上のギアのアイコンをクリックして、"Language"をクリックしよう。出てきたウィンドウの中から日本語を選ぼう！  
+2. 右上のギアのマークから、"パッケージを追加する..."  を選ぼう
 ![code01](Capture.jpg)  
-3. Enter the following URL to the text box.  
-https://github.com/tksgmsy/pxt-BME280_I2C  
-Unfortunately, this is not officially approved package, so you'll see that message.  
+3. 出てきたウィンドウに以下のURLを入力しよう。    
+https://github.com/tksgmsy/pxt-BME280_I2C_JP  
+BME280ボードを動かすためのブロックが入っている、パッケージを選んで追加しよう。  
 ![code02](Capture02.jpg)  
-4. Once you've successfully imported the package to your project, you'll see that new row on you block coding pane.  
+4. うまくいったら、ブロックコーディングをするところにBME280_I2Cが追加されるとおもうよ。
 ![code03](Capture03.jpg)  
-5. Lastly, here is my example code.  
+5. 最後に、BME280ボードを使ったサンプルコードだよ  
 ![code04](Capture04.jpg)  
-Notice that you must need to select proper I2C bus address of your BME280 in “Init” block, which should be either 0x76 or 0x77.  
-If your BME280 is found on the I2C bus and initialized properly, “DeviceFound” block will return "true", otherwise return "false".
-So, you can check it by looking into the icon after booting your micro:bit.  
-When pressing "A", you'll see the temperature measured by BME280 in degrees celsius.  
-When pressing "B", you'll see hundredfold of the temperature, which is to tell you the temperature with two decimal place.  
-6. Have fun!  
-There are other blocks to measure pressure and humidity, additionally to set some functionalities of BME280. I recommend you to check the data sheet of BME280 before using those blocks. You can find it from the following link.  
+ここで気を付けてほしいのは、"初期化"のブロックのI2Cのアドレスは、自分が使っているBME280ボードのアドレス（0x76か0x77)に合わせてね。これが違うと全然動かないよ。もしBME280ボードがマイクロビットから見て、ちゃんとつながっている時は、"デバイスが見つかったか?"ブロックが真を返すよ。ちゃんとつながってないときは、偽を返すよ。上のプログラムでは、"X"マークが出たらうまくつながっていないから、その時は、配線をもう一度見直そう。  
+"A"ボタンを押すと、今の気温が表示されるよ。  
+"B"ボタンを押すと、今の気温の100倍の数字が表示されるよ。なぜ100倍かというと、マイクロビットは小数点を使うことができないんだ。だから、100倍の値を整数として表示してるんだ。たとえば、20.25度なら、2025と表示するんだ。
+
+6. うまくいったかな？  
+どうだろう？うまくいったかな？うまくいった人はすごい！他にも、気圧や湿度も測れるから測ってみよう。マイクロビットのタイマー機能を使って、何分かおきに、自動で測って、あとでボタンを押したら表示するプログラムなんかにも挑戦してみよう。  湿度を連続で測りながら、センサーに息を吹きかけてみよう。湿度が上昇するのが分かると思うよ。一日中気圧を測ってみるのも面白いよ。特に雨や台風が来てるときは面白いかもしれないよ。それじゃあがんばってね！  
+  
+スーパー小学生へ。  
+このパッケージにはここで説明していない、いろいろな機能を設定するためのブロックが入ってるよ。でもそれを使うためにはBME280のことをもっと詳しく知らなくてはうまく使えないよ。くわしくは以下のURLを見て、データシートをダウンロードして読んでみてね。英語だよ。
 https://www.bosch-sensortec.com/bst/products/all_products/bme280
   
-Hope you to enjoy your block coding life!  
-By the way, this page and cusom package were written by a father of an elementary school boy in Japan for free research on summer vacation. :)
+最後に。保護者の方へ。
+これは、夏休みの自由研究として、部材の調達に始まり、簡単な電子工作を経て、プログラミングと、うまくいけばとても楽しいですが、小学生、特に低学年には難しい内容となっています。高学年でも、普段からPCやマイクロビットなどのマイコンを触っていないと、子供だけで全部やるのは難しいと思います。分からないところは、ぜひとも、保護者の方が手伝ってあげていただければと思います。また、保護者の方も、普段から、この手の分野に親しまれている方々でないと、なかなか手伝ってあげるのは難しいと思います。その場合は、お近くのお知り合いの方にご助力いただければと思います。それも難しい場合は、別の自由研究テーマをお選びになることをお勧めします。  
+うまくいかないときは、何が原因かなどは、簡単にわかるものではありません。必ずうまくいかないといけない自由研究として行う場合は、絶対の自信のあるお子様か、必ずトラブルシューティングできる大人がそばにいる場合を除いてはお勧めしません。  
+それでも、失敗しても、その失敗を自分の自由研究として発表できるお子様や、そこから臨機応変にテーマを変えて自分の研究として進めることのできるお子様には、よいきっかけになれば幸いかと思います。
