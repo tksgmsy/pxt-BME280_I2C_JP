@@ -11,23 +11,23 @@ https://www.bosch-sensortec.com/bst/products/all_products/bme280
 ## さっそく準備しよう！
 ### これだけは絶対必要！
 - パソコン  
-MacでもWindowsでも大丈夫だよ。ただし、USBインターフェースがちゃんと使えること。  
+MacでもWindowsでも大丈夫だよ。ただし、USBインターフェースがちゃんと使えること。
 それから以下のホームページを開いて、ちゃんと表示されないと、マイクロビットのプログラミングができないよ。  
 [https://makecode.microbit.org/](https://makecode.microbit.org/)  
 もしも、マイクロビットを使ったことがないなら、はじめは簡単なプログラムをいくつか書いてみよう。  
-マイクロビットを持ってなくても、プログラムを書いて、パソコンンに保存することはできるぞ！  
+マイクロビットを持ってなくても、さっきのホームページで、プログラムを書いて、パソコンンに保存することはできるぞ！まずは、ちゃんとプログラムをパソコンに保存できるか確認しよう！  
 
 - マイクロビット  
 持ってなかったら、買ってもらうしかない！  
 はじめは、単四電池で動かせる電池ボックスのついたスターターキッドがおすすめだよ！  
-[これは、売っているお店（マルツ）のリンク](https://www.marutsu.co.jp/pc/i/839896/)  
+[これは、売っていたお店（マルツ）のリンク](https://www.marutsu.co.jp/pc/i/839896/)  
 ![microbit](image000.jpg)  
 
 - BME280 I2C ボード  
 持ってなかったら、買ってもらうしかない！  
 だけど、これが難しい。君のそばに、詳しい人がいてくれるといいんだけど...  
 以下のリンクが、僕が使ったのと同じものが売っているお店のものだよ。  
-[これは、売っているお店（秋月電子通商）のリンク](http://akizukidenshi.com/catalog/g/gK-09421/)
+[これは、売っていたお店（秋月電子通商）のリンク](http://akizukidenshi.com/catalog/g/gK-09421/)  
 これ以外にも、インターネットで探すと、いろいろな種類のボードが見つかるよ。
 BME280だけじゃなくて、必ず基盤についているやつを選んでね。あと、マイコンとの接続に、I2CとSPIという2種類があるんだけど、I2Cが使えるものを選んでね。  
 ちなみに、僕が買ったボードは、コネクターがはんだ付けされてなかったから、大人の人に付けてもらったよ。はんだ付けはあぶないから、できる大人の人に頼もう！  
@@ -37,8 +37,8 @@ BME280だけじゃなくて、必ず基盤についているやつを選んで�
 ### もっていると、とても便利なもの！
 - マイクロビット用のブレイクアウトボード  
 ブレイクアウトボードは、マイクロビットを、後で説明するブレッドボードにつなぐ時にとても便利なものだよ。  
-これは、マイクロビット用ならばどのブレイクアウトボードでもブレッドボードに接続できれば大丈夫！  
-[これは、売っているお店（マルツ）のリンク](https://www.marutsu.co.jp/pc/i/839840/)
+これは、マイクロビット用ならば、どんなブレイクアウトボードでも、ブレッドボードに接続できれば大丈夫！  
+[これは、売っていたお店（マルツ）のリンク](https://www.marutsu.co.jp/pc/i/839840/)
 ![BreakoutBoard](image01.jpg)  
 
 - ブレッドボードとジャンパー  
@@ -47,17 +47,20 @@ BME280だけじゃなくて、必ず基盤についているやつを選んで�
 ジャンパーは、どんなに多くても10本あれば、大丈夫だよ。  
 ![Breadboard](image02.jpg)  
 
-### How to connect a BME280 I2C board to your micro:bit
-micro:bit has two terminals to supply power to BME280 I2C board, which are called "+3v3" and "GND", also it has another two terminals to communicate data between your micro:bit and BME280, which called "SCL" and "SDA".  
-You can visit the following link to refer where the terminals are on your micro:bit.  
-http://microbit.org/guide/hardware/pins/  
-  
-On the other hand, your BME280 device will be vary, so I cannot describe here what pin should be connected to what pin of your BME280 device. However, most of a device should have the following connections, if you have a difficulty to connect your device, try asking the people around you, don't hesitate.  
+### マイクロビットとBME280をつないでみよう！
+まず、マイクロビットとBME280 I2Cボードの2つの端子をつなごう。マイクロビットのブレイクアウトボードの"+3v3"と"GND"をつなぐよ。これは、マイクロビットから、BME280ボードに、電気をあげるためにつなぐんだ。ちょうど、電池のプラスとマイナスの役割をするところだよ。  
+そのほかには、マイクロビットとBME280ボードと通信をするための端子を二つつなぐよ。名前は、"SCL"と"SDA"だよ。  
+以下のリンクにマイクロビットのどの端子がどこにあるか全部書いてあるから、見てみてね。  
+[マイクロビットの端子の説明](http://microbit.org/guide/hardware/pins/)  
+ブレイクアウトボードを使ってるひとは、ブレイクアウトボードの基盤に書いてあるか、付属の説明書に書いてあるから確認しよう！  
 
-1. "+3v3" -> "VDD" (This is to supply +3V power to your BME280 from micro:bit)
-2. "GND" -> "GND" (This is to supply +3V power to your BME280 from micro:bit)
-3. "SDA" -> "SDI" (This is an I2C data connection.)
-4. "SCL" -> "SCK" (This is an I2C clock connection.)
+そして、つなぐ相手のBME280ボードのほうは、みんな使ってるボードが違うから、どこにつなげば良いかは、ここでは説明できないんだ。だけど、ほとんどのBME280ボードは、下のような名前の端子があると思うから、そこにつなげばきっとうまくいくと思うよ。これも、わからないときは、周りの人に聞いてみよう！
+
+1. マイクロビットの"+3v3"をBME280ボードの"VDD"に
+2. マイクロビットの"GND"をBME280ボードの"GND"に
+3. マイクロビットの"SDA"をBME280ボードの"SDI"に
+4. マイクロビットの"SCL"をBME280ボードの"SCK"に
+
 
 ### My case
 OK, then, let's see how my case was.
