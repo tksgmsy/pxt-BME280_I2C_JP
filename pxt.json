@@ -1,0 +1,17 @@
+{
+    "name": "pxt-BME280_I2C",
+    "version": "1.0.0",
+    "description": "To enable BME280 on I2C bus",
+    "license": "Bosch Sensortec",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "main.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true
+}
