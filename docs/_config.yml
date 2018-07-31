@@ -1,1 +1,3 @@
 theme: jekyll-theme-slate
+title: micro:bit用のBME280 カスタムパッケージ
+description: BME280はとても正確な気温と気圧、そして湿度が測定できるぞ！
