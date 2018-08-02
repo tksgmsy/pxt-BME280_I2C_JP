@@ -7,16 +7,16 @@ enum BME280_I2C_ADDRESS {
 };
 
 enum BME280_I2C_SENSOR_MODE {
-    //% block="SLEEP"
+    //% block="スリープ"
     e_SLEEP = 0x00,
-    //% block="FORCED(Measure Once)"
+    //% block="強制(一回だけ計測)"
     e_FORCED = 0x01,
-    //% block="NORMAL"
+    //% block="通常（ずっと計測）"
     e_NORMAL = 0x03
 };
 
 enum BME280_I2C_SAMPLING_MODE {
-    //% block="SKIP"
+    //% block="スキップ"
     e_SKIP = 0x00,
     //% block="1X"
     e_1X = 0x01,
@@ -441,16 +441,16 @@ namespace BME280_I2C {
         DebugWriteLine("PutDeviceToSleep - Finished");
     }
 
-    /** Set sampling mode.
-    * The number of oversampling for a mesurement. High sampling mode will bring you accurate mesurement resut, although it will result in high power consumptions.
-    * Selecting SKIP will turn off the sensor. Notice that temperature will be neeed to compensate p or h sensor data.
-    * @param t sampling mode for temperature, eg:BME280_I2C_SAMPLING_MODE.e_2X
-    * @param p sampling mode for pressure, eg:BME280_I2C_SAMPLING_MODE.e_16X
-    * @param h sampling mode for humidity, eg:BME280_I2C_SAMPLING_MODE.e_1X
+    /** サンプリングモードの設定
+    * 計測するときのオーバーサンプリングの回数を設定。高いサンプル数は精密な計測につながります。ただし消費電力は増えます。
+    * スキップを選択すると、その項目は測定しません。ただし、温度の計測結果は、圧力と、湿度のデータの補正に使われますので、温度は切らないことをお勧めします。
+    * @param t 温度のサンプリングモード, eg:BME280_I2C_SAMPLING_MODE.e_2X
+    * @param p 気圧のサンプリングモード, eg:BME280_I2C_SAMPLING_MODE.e_16X
+    * @param h 湿度のサンプリングモード, eg:BME280_I2C_SAMPLING_MODE.e_1X
     */
     //% weight=28
     //% blockId=BME280_I2C_SetSamplingMode
-    //% block="BME280|Set Sampling Mode Temperature: %t| Pressure: %p| Humidity: %h"
+    //% block="BME280|サンプリングモード 温度: %t| 気圧: %p| 湿度: %h"
     export function SetSamplingMode(
         t: BME280_I2C_SAMPLING_MODE = BME280_I2C_SAMPLING_MODE.e_2X,
         p: BME280_I2C_SAMPLING_MODE = BME280_I2C_SAMPLING_MODE.e_16X,
@@ -465,11 +465,11 @@ namespace BME280_I2C {
         DebugWriteLine("SetSamplingMode - Finished");
     }
 
-    /** Set stanby duration which is the mesurement interval for sensors in NormalMode.
-     * @param sb duration, eg: BME280_I2C_STANDBY_DURATION.e_500_MS
+    /** スタンバイ時間間隔の設定。ノーマルモードの時の計測終了から次の計測までの時間を設定します。
+     * @param sb 間隔, eg: BME280_I2C_STANDBY_DURATION.e_500_MS
      */
     //% weight=29
-    //% blockId=BME280_I2C_SetStandbyDuration block="BME280 Set Standby Duration: %sb"
+    //% blockId=BME280_I2C_SetStandbyDuration block="BME280 スタンバイ時間間隔: %sb"
     export function SetStandbyDuration(sb: BME280_I2C_STANDBY_DURATION = BME280_I2C_STANDBY_DURATION.e_500_MS): void {
         DebugWriteLine("SetStandbyDuration");
 
@@ -479,11 +479,11 @@ namespace BME280_I2C {
         DebugWriteLine("SetStandbyDuration - Finished");
     }
 
-    /** Set IIR Filter Cofficient. This value is only valid in NormalMode.
-     * @param coef Cofficient number to set, eg: BME280_I2C_IIR_FILTER_COEFFICIENT.e_16
+    /** IIR フィルタ係数の設定。ノーマルモードの時のみ有効になります。
+     * @param 設定するフィルタ係数, eg: BME280_I2C_IIR_FILTER_COEFFICIENT.e_16
      */
     //% weight=27
-    //% blockId=BME280_I2C_IIRFilterCoefficient block="BME280 Set IIR Filter Coefficient: %coef"
+    //% blockId=BME280_I2C_IIRFilterCoefficient block="BME280 IIRフィルタ係数: %coef"
     export function SetIIRFilterCoefficient(coef: BME280_I2C_IIR_FILTER_COEFFICIENT = BME280_I2C_IIR_FILTER_COEFFICIENT.e_16): void {
         DebugWriteLine("SetIIRFilterCoefficient");
 
@@ -493,11 +493,11 @@ namespace BME280_I2C {
         DebugWriteLine("SetIIRFilterCoefficient - Finished");
     }
 
-    /** This is need to be called to send changes on setting sexcept for sensor mode to your device.
-     * @param mode Sensor mode to set, eg: BME280_I2C_SENSOR_MODE.e_NORMAL
+    /** 設定の更新の実行。サンプリングモードや、スタンバイ時間間隔、IIRフィルタなどの設定は、値を設定してから、
+     * このブロックを実行すると、実際にBME280の設定を変更します。
      */
     //% weight=26
-    //% blockId=BME280_I2C_UpdateSettings block="BME280 UpdateSettings"
+    //% blockId=BME280_I2C_UpdateSettings block="BME280 設定の更新実行"
     export function UpdateSettings(): void {
         DebugWriteLine("UpdateSettings");
 
@@ -510,15 +510,15 @@ namespace BME280_I2C {
         DebugWriteLine("UpdateSettings - Finished");
     }
 
-    /** SetSensorMode.
-     * In NORMAL mode, mesurement values are automatically update in the device every stanby duration past. 
-     * In FORCED mode, mesuremend will be done once immediately and fater the mesurement, the device will return back to SLEEP mode. 
-     * In SLEEP mode, All mesurement process will not happen but the device keeps the latest mesuremet values so you can retrieve those in this mode.
-     * @param mode Sensor mode to set, eg: BME280_I2C_SENSOR_MODE.e_NORMAL
+    /** センサーモードの設定
+     * ノーマルモードでは、センサーの計測を一定時間間隔で連続して行います。 
+     * 強制モードでは、直ちに一回だけ計測を行います。終わったらスリープモードに移行します。 
+     * スリープモード。何も計測しません。ただし、BME280は最後に計測したデータを保持していますので、その値は読み出すことが出来ます。
+     * @param 設定するセンサーモード, eg: BME280_I2C_SENSOR_MODE.e_NORMAL
      */
     //% weight=25
     //% blockId=BME280_I2C_SetSensorMode
-    //% block="BME280 SetSensorMode %mode"
+    //% block="BME280 センサーモードの設定 %mode"
     export function SetSensorMode(mode: BME280_I2C_SENSOR_MODE = BME280_I2C_SENSOR_MODE.e_NORMAL): void {
         DebugWriteLine("SetSensorMode");
         let BME280_PWR_CTRL_ADDR = 0xF4;
@@ -558,13 +558,13 @@ namespace BME280_I2C {
         DebugWriteLine("SetSensorMode - Finished");
     }
 
-    /** You must need to call this once before using your BME280.
-     * You can find if your device is found on your I2C bus by checking DeviceFound boolean block after calling this.
-     * @param i2cAddr I2C bus address of your sensor, eg: BME280_I2C_ADDRESS.e_0x76
+    /** 初期化。BME280を使う時は、必ず、最初に、一回だけ実行してください。
+     * I2CバスにBME280が見つかり、無事に初期化できた場合は、"デバイスが見つかった"ブロックは真を返すようになります。
+     * @param BME280のI2Cバスのアドレス, eg: BME280_I2C_ADDRESS.e_0x76
      */
     //% weight=90
     //% blockId=BME280_I2C_Init
-    //% block="BME280 Init I2CAddr = %i2cAddr"
+    //% block="BME280 初期化　I2Cアドレス = %i2cAddr"
     export function Init(
         i2cAddr: BME280_I2C_ADDRESS = BME280_I2C_ADDRESS.e_0x76): void {
         DebugWriteLine("Init");
@@ -614,18 +614,17 @@ namespace BME280_I2C {
         DebugWriteLine("Init - Finished");
     };
 
-    /** This will return true if your device is found on I2C bus and gets initialized properly.
-     * Otherwise this will return false.
+    /** 初期化を実行して、正しくBME280が初期化できた場合は、真を返します。そうでなければ偽を返します。
      */
     //% weight=89
-    //% blockId=BME280_I2C_DeviceFound block="BME280 DeviceFound"
+    //% blockId=BME280_I2C_DeviceFound block="BME280 デバイスが見つかったか"
     export function DeviceFound(): boolean {
         DebugWriteLine("DeviceFound");
         return deviceFound;
     }
 
     //% weight=87
-    //% blockId=BME280_I2C_temperature block="BME280 Temperature"
+    //% blockId=BME280_I2C_temperature block="BME280 気温(℃)"
     export function Temperature(): number {
         if (IsUpdateNeeded())
             ReadSensorData();
@@ -634,7 +633,7 @@ namespace BME280_I2C {
     }
 
     //% weight=86
-    //% blockId=BME280_I2C_pressure block="BME280 Pressure"
+    //% blockId=BME280_I2C_pressure block="BME280 気圧(hPa)"
     export function Pressure(): number {
         if (IsUpdateNeeded())
             ReadSensorData();
@@ -643,7 +642,7 @@ namespace BME280_I2C {
     }
 
     //% weight=85
-    //% blockId=BME280_I2C_humidity block="BME280 Humidity"
+    //% blockId=BME280_I2C_humidity block="BME280 湿度(%)"
     export function Humidity(): number {
         if (IsUpdateNeeded())
             ReadSensorData();
@@ -652,7 +651,7 @@ namespace BME280_I2C {
     }
 
     //% weight=84
-    //% blockId=BME280_I2C_temperature100 block="BME280 Temperature100"
+    //% blockId=BME280_I2C_temperature100 block="BME280 気温(100倍)"
     export function Temperature100(): number {
         if (IsUpdateNeeded())
             ReadSensorData();
@@ -661,7 +660,7 @@ namespace BME280_I2C {
     }
 
     //% weight=83
-    //% blockId=BME280_I2C_pressure100 block="BME280 Pressure100"
+    //% blockId=BME280_I2C_pressure100 block="BME280 気圧(100倍)"
     export function Pressure100(): number {
         if (IsUpdateNeeded())
             ReadSensorData();
@@ -670,7 +669,7 @@ namespace BME280_I2C {
     }
 
     //% weight=82
-    //% blockId=BME280_I2C_humidity100 block="BME280 Humidity100"
+    //% blockId=BME280_I2C_humidity100 block="BME280 湿度(100倍)"
     export function Humidity100(): number {
         if (IsUpdateNeeded())
             ReadSensorData();
