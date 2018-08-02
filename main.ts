@@ -9,9 +9,9 @@ enum BME280_I2C_ADDRESS {
 enum BME280_I2C_SENSOR_MODE {
     //% block="スリープ"
     e_SLEEP = 0x00,
-    //% block="強制(一回だけ計測)"
+    //% block="一回だけ計測"
     e_FORCED = 0x01,
-    //% block="通常（ずっと計測）"
+    //% block="連続で計測"
     e_NORMAL = 0x03
 };
 
@@ -511,9 +511,9 @@ namespace BME280_I2C {
     }
 
     /** センサーモードの設定
-     * ノーマルモードでは、センサーの計測を一定時間間隔で連続して行います。 
-     * 強制モードでは、直ちに一回だけ計測を行います。終わったらスリープモードに移行します。 
-     * スリープモード。何も計測しません。ただし、BME280は最後に計測したデータを保持していますので、その値は読み出すことが出来ます。
+     * "連続で計測"では、センサーの計測を一定時間間隔で連続して行います。 
+     * "一回だけ計測"では、直ちに一回だけ計測を行います。終わったらスリープモードに移行します。 
+     * "スリープ"では何も計測しません。ただし、BME280は最後に計測したデータを保持していますので、その値は読み出すことが出来ます。
      * @param 設定するセンサーモード, eg: BME280_I2C_SENSOR_MODE.e_NORMAL
      */
     //% weight=25
@@ -744,7 +744,7 @@ namespace BME280_I2C {
     }
 
     //% blockId=BME280_I2C_serialoutsensordata
-    //% block="SerialOutSensorData"
+    //% block="シリアルにセンサーデータを出力"
     //% weight=10
     export function SerialOutSensorData(): void {
         DebugWriteLine("SerialOutSensorData");
@@ -755,7 +755,7 @@ namespace BME280_I2C {
     }
 
     //% blockId=BME280_I2C_SerialOutCurrentState
-    //% block="SerialOutCurrentState"
+    //% block="シリアルに現在の設定を出力"
     //% weight=10
     export function SerialOutCurrentState(): void {
         DebugWriteLine("SerialOutCurrentState");
